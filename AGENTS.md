@@ -74,3 +74,39 @@ fe-portfolio/
 - CSS: 컴포넌트명.css 파일 분리
 - 더미 데이터: `src/data/` 폴더에 TypeScript 파일로 관리
 - 커밋: `feat:`, `fix:`, `style:`, `docs:`, `refactor:` 프리픽스
+
+### 반응형 CSS 규칙 (필수)
+
+**모바일 퍼스트** — 기본 스타일은 모바일 기준으로 작성하고, 미디어 쿼리로 확장
+
+```css
+/* ✅ 올바른 방식: 모바일 기본, 위로 확장 */
+.container {
+  padding: 16px;          /* 모바일 기본 */
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 24px;        /* 태블릿 */
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    padding: 40px;        /* 데스크톱 */
+  }
+}
+
+/* ❌ 금지: 데스크톱 기준으로 쓰고 max-width로 줄이는 방식 */
+```
+
+**브레이크포인트:**
+- 모바일: 기본 (0px~)
+- 태블릿: `min-width: 768px`
+- 데스크톱: `min-width: 1200px`
+
+**공통 원칙:**
+- `width: 100%` 기본, 데스크톱에서 `max-width` 제한
+- 그리드: 모바일 1열 → 태블릿 2열 → 데스크톱 3열
+- 폰트 사이즈: 모바일 기준 작성, 데스크톱에서 확대
+- 터치 타겟 최소 44px (버튼, 링크)
