@@ -1,5 +1,7 @@
 # Coding Convention
 
+> ⚠️ CSS 파일명은 **소문자** (lowercase). 예: `header.css`, `projects.css`
+
 ---
 
 ## Document Language Policy
