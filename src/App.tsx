@@ -1,4 +1,6 @@
 import Header from './components/Header';
+import Hero from './components/Hero';
+import Skills from './components/Skills';
 import './App.css';
 
 function App() {
@@ -7,9 +9,9 @@ function App() {
       <Header />
 
       <main>
-        <section id="hero">Hero</section>
+        <Hero />
         <section id="about">About</section>
-        <section id="skills">Skills</section>
+        <Skills />
         <section id="projects">Projects</section>
         <section id="contact">Contact</section>
       </main>
