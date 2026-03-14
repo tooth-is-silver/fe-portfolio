@@ -1,11 +1,10 @@
+import Header from './components/Header';
 import './App.css';
 
 function App() {
   return (
     <>
-      <header>
-        <nav>Header / Nav</nav>
-      </header>
+      <Header />
 
       <main>
         <section id="hero">Hero</section>
