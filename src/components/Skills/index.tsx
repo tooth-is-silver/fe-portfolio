@@ -1,5 +1,5 @@
 import { skillCategories } from '../../data/skills';
-import './Skills.css';
+import './skills.css';
 
 function Skills() {
   return (

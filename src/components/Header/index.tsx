@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import './Header.css';
+import './header.css';
 
 const NAV_ITEMS = [
   { label: 'About', href: '#about' },
