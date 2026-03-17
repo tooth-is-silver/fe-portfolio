@@ -67,10 +67,12 @@ PR 리뷰 →                  PR 생성
 
 ## 프로젝트 구조
 
+> FSD(Feature-Sliced Design)는 적용하지 않았습니다. 포트폴리오 규모에서는 컴포넌트 중심의 단순한 구조가 더 적합하다고 판단했어요.
+
 ```
 fe-portfolio/
 ├── src/
-│   ├── components/       # UI 컴포넌트
+│   ├── components/       # UI 컴포넌트 (섹션 단위)
 │   │   ├── Header/       # sticky nav + 스크롤 스파이
 │   │   ├── Hero/         # 인트로 섹션
 │   │   ├── Skills/       # 기술 스택 태그
@@ -78,11 +80,22 @@ fe-portfolio/
 │   │   ├── Contact/      # 연락처
 │   │   └── Footer/
 │   ├── hooks/            # 커스텀 훅 (useScrollSpy 등)
-│   ├── utils/            # 순수 함수 유틸 + 테스트
+│   ├── utils/            # 순수 함수 유틸 + 테스트  → [스펙 문서](docs/specs/spec-utils.md)
 │   ├── data/             # 프로젝트/스킬 데이터
 │   └── types/            # 공통 타입 정의
-├── docs/                 # 설계 문서, 컨벤션, 스펙
-└── .github/workflows/    # CI (테스트 자동화)
+├── docs/
+│   ├── index.md                      # 문서 인덱스
+│   ├── planning.md                   # 기획 / 페이즈 로드맵
+│   ├── conventions/
+│   │   ├── coding.md                 # 코딩 컨벤션
+│   │   └── commit.md                 # 커밋 메시지 컨벤션
+│   ├── specs/
+│   │   └── spec-utils.md             # 유틸 함수 스펙 & 테스트 케이스
+│   └── guides/
+│       ├── state-management.md       # 상태 관리 가이드
+│       └── seo-hydration.md          # SEO / 하이드레이션 가이드
+└── .github/workflows/
+    └── ci.yml                        # PR 테스트 자동화
 ```
 
 ---
