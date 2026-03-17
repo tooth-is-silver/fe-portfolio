@@ -73,9 +73,14 @@
   transition: color 0.2s ease;
 }
 
-.header__nav-link:hover {
+.header__nav-link:hover,
+.header__nav-link--active {
   background-color: var(--color-surface);
   color: var(--color-primary);
+}
+
+.header__nav-link--active {
+  font-weight: 600;
 }
 
 .header__hamburger {
@@ -138,9 +143,14 @@
     font-size: 15px;
   }
 
-  .header__nav-link:hover {
+  .header__nav-link:hover,
+  .header__nav-link--active {
     background: none;
     color: var(--color-primary);
+  }
+
+  .header__nav-link--active {
+    font-weight: 600;
   }
 
   .header__hamburger {

@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useScrollSpy } from '../../hooks/useScrollSpy';
 import './header.css';
 
 const NAV_ITEMS = [
@@ -11,6 +12,7 @@ const NAV_ITEMS = [
 function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const activeId = useScrollSpy();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,7 +71,11 @@ function Header() {
           <ul className="header__nav-list">
             {NAV_ITEMS.map(({ label, href }) => (
               <li key={href} className="header__nav-item">
-                <a href={href} className="header__nav-link" onClick={closeMenu}>
+                <a
+                  href={href}
+                  className={`header__nav-link${activeId === href.slice(1) ? ' header__nav-link--active' : ''}`}
+                  onClick={closeMenu}
+                >
                   {label}
                 </a>
               </li>
