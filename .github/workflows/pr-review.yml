@@ -21,7 +21,7 @@ jobs:
         id: diff
         run: |
           git fetch origin main
-          DIFF=$(git diff origin/main...HEAD -- '*.ts' '*.tsx' '*.css' '*.json' '*.md' | head -c 12000)
+          DIFF=$(git diff origin/main...HEAD -- '*.ts' '*.tsx' '*.css' '*.md' ':!package-lock.json' | head -c 10000)
           echo "diff<<EOF" >> $GITHUB_OUTPUT
           echo "$DIFF" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
@@ -62,15 +62,16 @@ jobs:
           🏁 **최종 평가**: ✅ 머지 가능 / ⚠️ 수정 후 머지 / ❌ 재작성 필요
           > 한 줄 코멘트"
 
+          PAYLOAD=$(jq -n \
+            --arg model "claude-haiku-4-5" \
+            --arg content "$PROMPT" \
+            '{model: $model, max_tokens: 1024, messages: [{role: "user", content: $content}]}')
+
           RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
             -H "x-api-key: $ANTHROPIC_API_KEY" \
             -H "anthropic-version: 2023-06-01" \
             -H "content-type: application/json" \
-            -d "{
-              \"model\": \"claude-haiku-4-5\",
-              \"max_tokens\": 1024,
-              \"messages\": [{\"role\": \"user\", \"content\": $(echo "$PROMPT" | jq -Rs .)}]
-            }")
+            -d "$PAYLOAD")
 
           REVIEW=$(echo "$RESPONSE" | jq -r '.content[0].text // "리뷰 생성 실패"')
           echo "review<<EOF" >> $GITHUB_OUTPUT
