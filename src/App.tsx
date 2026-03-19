@@ -1,7 +1,8 @@
+import { OceanCanvas } from './canvas/OceanCanvas'
+import './App.css'
+
 function App() {
-  return (
-    <div id="root-canvas" />
-  )
+  return <OceanCanvas />
 }
 
 export default App
