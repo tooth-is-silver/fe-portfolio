@@ -21,62 +21,46 @@ jobs:
         id: diff
         run: |
           git fetch origin main
-          DIFF=$(git diff origin/main...HEAD -- '*.ts' '*.tsx' '*.css' '*.md' 'package.json' ':!package-lock.json' | head -c 10000)
-          echo "diff<<EOF" >> $GITHUB_OUTPUT
-          echo "$DIFF" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          DIFF=$(git diff origin/main...HEAD -- '*.ts' '*.tsx' '*.css' '*.md' 'package.json' ':!package-lock.json' | head -c 8000)
+          {
+            echo 'diff<<DIFF_EOF'
+            echo "$DIFF"
+            echo 'DIFF_EOF'
+          } >> $GITHUB_OUTPUT
 
       - name: AI Review via Anthropic
         id: ai_review
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_DIFF: ${{ steps.diff.outputs.diff }}
         run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          PR_NUMBER="${{ github.event.pull_request.number }}"
-          DIFF="${{ steps.diff.outputs.diff }}"
-
-          PROMPT="다음은 GitHub PR의 코드 diff입니다. 코드 리뷰어 입장에서 분석해주세요.
-
-          PR 제목: ${PR_TITLE}
-
-          diff:
-          ${DIFF}
-
-          리뷰 기준:
-          1. 완성도 (요구사항 충족 여부)
-          2. 코드 품질 (컨벤션, 가독성, 타입 안전성)
-          3. 버그/이슈 (엣지케이스, 잠재적 오류)
-          4. 개선 제안
-
-          다음 형식으로 답변해주세요 (마크다운):
-          ## 🔍 PR #${PR_NUMBER} 리뷰 — ${PR_TITLE}
-
-          📋 **완성도**: ...
-
-          🐛 **발견한 이슈**:
-          - ...
-
-          💡 **개선 제안**:
-          - ...
-
-          🏁 **최종 평가**: ✅ 머지 가능 / ⚠️ 수정 후 머지 / ❌ 재작성 필요
-          > 한 줄 코멘트"
-
           PAYLOAD=$(jq -n \
-            --arg model "claude-haiku-4-5" \
-            --arg content "$PROMPT" \
-            '{model: $model, max_tokens: 1024, messages: [{role: "user", content: $content}]}')
+            --arg pr_title "$PR_TITLE" \
+            --arg pr_number "$PR_NUMBER" \
+            --arg pr_diff "$PR_DIFF" \
+            '{
+              model: "claude-haiku-4-5",
+              max_tokens: 1024,
+              messages: [{
+                role: "user",
+                content: ("다음은 GitHub PR의 코드 diff입니다. 코드 리뷰어 입장에서 분석해주세요.\n\nPR 제목: " + $pr_title + "\n\ndiff:\n" + $pr_diff + "\n\n리뷰 기준:\n1. 완성도 (요구사항 충족 여부)\n2. 코드 품질 (컨벤션, 가독성, 타입 안전성)\n3. 버그/이슈 (엣지케이스, 잠재적 오류)\n4. 개선 제안\n\n다음 형식으로 답변 (마크다운):\n## 🔍 PR #" + $pr_number + " 리뷰 — " + $pr_title + "\n\n📋 **완성도**: ...\n\n🐛 **발견한 이슈**:\n- ...\n\n💡 **개선 제안**:\n- ...\n\n🏁 **최종 평가**: ✅ 머지 가능 / ⚠️ 수정 후 머지 / ❌ 재작성 필요\n> 한 줄 코멘트")
+              }]
+            }')
 
-          RESPONSE=$(curl -s https://api.anthropic.com/v1/messages \
+          RESPONSE=$(curl -sf https://api.anthropic.com/v1/messages \
             -H "x-api-key: $ANTHROPIC_API_KEY" \
             -H "anthropic-version: 2023-06-01" \
             -H "content-type: application/json" \
             -d "$PAYLOAD")
 
           REVIEW=$(echo "$RESPONSE" | jq -r '.content[0].text // "리뷰 생성 실패"')
-          echo "review<<EOF" >> $GITHUB_OUTPUT
-          echo "$REVIEW" >> $GITHUB_OUTPUT
-          echo "EOF" >> $GITHUB_OUTPUT
+          {
+            echo 'review<<REVIEW_EOF'
+            echo "$REVIEW"
+            echo 'REVIEW_EOF'
+          } >> $GITHUB_OUTPUT
 
       - name: Post review comment
         env:
@@ -86,20 +70,21 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           BODY=$(printf '%s\n\n---\n*🤖 자동 AI 리뷰 (claude-haiku)*' "$REVIEW")
-          gh api repos/$REPO/issues/$PR_NUMBER/comments \
+          gh api "repos/$REPO/issues/$PR_NUMBER/comments" \
             -f body="$BODY"
 
       - name: Discord notification
-        if: ${{ env.DISCORD_WEBHOOK_URL != '' }}
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
         run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          PR_NUMBER="${{ github.event.pull_request.number }}"
-          PR_URL="${{ github.event.pull_request.html_url }}"
-
-          curl -s -X POST "$DISCORD_WEBHOOK_URL" \
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then exit 0; fi
+          curl -sf -X POST "$DISCORD_WEBHOOK_URL" \
             -H "Content-Type: application/json" \
-            -d "{
-              \"content\": \"🔍 **PR #${PR_NUMBER} 자동 리뷰 완료**\n**${PR_TITLE}**\n${PR_URL}\n\nPR 코멘트에서 리뷰 결과를 확인하세요!\"
-            }"
+            -d "$(jq -n \
+              --arg title "$PR_TITLE" \
+              --arg number "$PR_NUMBER" \
+              --arg url "$PR_URL" \
+              '{content: ("🔍 **PR #" + $number + " 자동 리뷰 완료**\n**" + $title + "**\n" + $url + "\n\nPR 코멘트에서 리뷰 결과를 확인하세요!")}')"
