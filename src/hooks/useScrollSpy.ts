@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getActiveSection } from '../utils/scroll'
 
-const SECTION_IDS = ['hero', 'skills', 'projects', 'contact']
+const SECTION_IDS = ['hero', 'about', 'skills', 'projects', 'devnote', 'contact']
 const HEADER_OFFSET = 80
 
 /**
