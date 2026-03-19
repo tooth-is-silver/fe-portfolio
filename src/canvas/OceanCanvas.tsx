@@ -1,36 +1,26 @@
 import { Canvas } from '@react-three/fiber'
 import { Suspense } from 'react'
 import { OceanScene } from './OceanScene'
+import { useDepthStore } from '../store/depthStore'
+import { useDepthNavigation } from '../hooks/useDepthNavigation'
 import styled from '@emotion/styled'
-import { css } from '@emotion/react'
 
-const fullscreenStyle = css`
+const CanvasWrapper = styled.div`
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
 `
 
-const CanvasWrapper = styled.div`
-  ${fullscreenStyle}
-`
-
-const LoadingScreen = styled.div`
-  ${fullscreenStyle}
-  background: hsl(220, 80%, 10%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(125, 211, 252, 0.6);
-  font-family: sans-serif;
-  font-size: 14px;
-  letter-spacing: 0.1em;
-`
-
-// 모바일 디바이스 감지 (antialias 성능 최적화용)
+// 모바일 감지 — antialias 성능 최적화
 const isMobile = /mobile|android|iphone|ipad/i.test(navigator.userAgent)
 
 export function OceanCanvas() {
+  const depth = useDepthStore((s) => s.depth)
+
+  // 휠/스와이프 이동 활성화
+  useDepthNavigation()
+
   return (
     <CanvasWrapper>
       <Canvas
@@ -42,12 +32,9 @@ export function OceanCanvas() {
         }}
       >
         <Suspense fallback={null}>
-          <OceanScene />
+          <OceanScene depth={depth} />
         </Suspense>
       </Canvas>
-      {/* Canvas 로딩 전 fallback — Suspense가 해소되면 사라짐 */}
     </CanvasWrapper>
   )
 }
-
-export { LoadingScreen }
