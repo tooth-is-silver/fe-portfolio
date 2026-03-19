@@ -1,3 +1,4 @@
-#root {
-  min-height: 100vh;
+#root-canvas {
+  width: 100vw;
+  height: 100vh;
 }
