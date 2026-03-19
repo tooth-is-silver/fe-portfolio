@@ -79,16 +79,15 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Post review comment
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const review = `${{ steps.ai_review.outputs.review }}`;
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              body: review + '\n\n---\n*🤖 자동 AI 리뷰 (claude-haiku)*'
-            });
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REVIEW: ${{ steps.ai_review.outputs.review }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          BODY=$(printf '%s\n\n---\n*🤖 자동 AI 리뷰 (claude-haiku)*' "$REVIEW")
+          gh api repos/$REPO/issues/$PR_NUMBER/comments \
+            -f body="$BODY"
 
       - name: Discord notification
         if: ${{ env.DISCORD_WEBHOOK_URL != '' }}
