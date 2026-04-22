@@ -1,6 +1,6 @@
 # Planning Document — Frontend Portfolio
 
-> Updated: 2026-04-22 | Status: draft v3
+> Updated: 2026-04-22 | Status: draft v2
 
 ---
 
@@ -70,7 +70,7 @@
   -> Stage 3
   -> Stage 4
   -> Stage 5
-  -> Stage 6 (optional)
+  -> Stage 6
 
 [Stage Result]
   -> Resume Fragment Unlocked
@@ -99,6 +99,12 @@
 
 권장안은 **총 6개 스테이지**다.
 
+### Stage Difficulty Rule
+
+- Stage 1~3은 첫인상과 경력 전달이 목적이므로 가장 직관적인 조작을 쓴다.
+- Stage 4~6은 정보 주제가 달라질 뿐, 난이도를 더 높이지 않는다.
+- 후반부 스테이지는 난이도 상승이 아니라 **정보 조립의 밀도**가 올라가는 구조로 본다.
+
 ### Stage 1. Career — Toss
 
 - 주제: 토스 경력
@@ -111,6 +117,12 @@
   - 타일 점프
   - 타이밍 러닝
   - 체크포인트 수집
+- 선정 근거:
+  - 첫 스테이지는 조작 설명이 거의 없어도 되는 패턴이 유리하다.
+  - 짧은 러닝/점프 흐름은 "첫 경력 조각을 획득한다"는 시작 감각을 명확하게 만든다.
+  - 체크포인트 수집 구조는 소속, 역할, 기여, 기술을 한 조각씩 회수하는 연출과 잘 맞는다.
+- MVP 우선안:
+  - 타이밍 러닝
 
 ### Stage 2. Career — Lighthouse
 
@@ -123,6 +135,12 @@
 - 미니게임 후보:
   - 장애물 회피
   - 스위치 순서 맞추기
+  - 간단한 경로 퍼즐
+- 선정 근거:
+  - 라이트하우스 스테이지는 협업과 조율의 이미지를 전달해야 하므로, 순서와 판단이 드러나는 패턴이 적합하다.
+  - 장애물 회피나 경로 퍼즐은 "막힌 흐름을 통과하며 개선한다"는 의미를 시각적으로 만들기 쉽다.
+  - 스위치 순서 맞추기는 협업 순서, 작업 조합, 의사결정 과정을 은유하기 좋다.
+- MVP 우선안:
   - 간단한 경로 퍼즐
 
 ### Stage 3. Career — Rowlabs
@@ -137,6 +155,12 @@
   - 움직이는 플랫폼
   - 키 조합 퍼즐
   - 순서 기억 퍼즐
+- 선정 근거:
+  - 로랩스 스테이지는 문제 해결과 기술적 포인트를 강조하므로, 반응보다 판단이 필요한 패턴이 맞다.
+  - 움직이는 플랫폼은 변화하는 요구사항에 맞춰 이동하는 감각을 줄 수 있다.
+  - 키 조합/순서 기억은 기능 연결, 흐름 이해, 조건 처리 같은 기술적 사고를 은유하기 좋다.
+- MVP 우선안:
+  - 순서 기억 퍼즐
 
 ### Stage 4. Education & Activities
 
@@ -150,6 +174,12 @@
   - 카드 뒤집기
   - 매칭 퍼즐
   - 문장 복구 퍼즐
+- 선정 근거:
+  - 학력과 대외활동은 사건의 연속보다 "이력의 연결"이 중요하므로 기억/매칭 계열이 적합하다.
+  - 카드 뒤집기나 매칭 퍼즐은 흩어진 성장 이력을 다시 연결하는 감각을 만들 수 있다.
+  - 문장 복구는 교육/활동 맥락을 지나치게 텍스트 중심으로 만들 수 있어 MVP에서는 후순위다.
+- MVP 우선안:
+  - 카드 뒤집기
 
 ### Stage 5. Career Detail
 
@@ -163,6 +193,12 @@
   - 미니 수도쿠
   - 논리 퍼즐
   - 규칙 찾기
+- 선정 근거:
+  - 이 스테이지는 회사 이력보다 "어떻게 일하는가"를 보여줘야 하므로 논리 기반 퍼즐이 가장 직접적이다.
+  - 수도쿠, 규칙 찾기, 논리 퍼즐은 구조화된 사고와 문제 분해 이미지를 전달하기 좋다.
+  - 단, 실제 난이도는 낮게 유지해 역량 서술이 퍼즐 난도에 묻히지 않게 해야 한다.
+- MVP 우선안:
+  - 규칙 찾기
 
 ### Stage 6. Projects / Final Unlock
 
@@ -175,6 +211,12 @@
   - 보스 스테이지 성격의 짧은 종합 퍼즐
   - 지금까지 얻은 조각을 조립하는 퍼즐
   - 리듬감 있는 피날레형 스테이지
+- 선정 근거:
+  - 마지막 스테이지는 새로운 정보를 배우는 구간보다, 기존 조각을 연결해 완성감을 주는 역할이 더 중요하다.
+  - 따라서 완전히 새로운 규칙보다 지금까지 해금한 정보를 조립하는 패턴이 적합하다.
+  - 최종 Resume Open은 보상이어야 하므로 플레이 시간은 짧고 성공 경험은 확실해야 한다.
+- MVP 우선안:
+  - 지금까지 얻은 조각을 조립하는 퍼즐
 
 ---
 
@@ -249,7 +291,70 @@
 
 ---
 
-## 8. UX Principles
+## 8. Resume Fragment Structure
+
+최종 이력서 해금 로직이 모호해지지 않도록,
+각 스테이지는 1개 이상의 Resume Fragment 묶음을 반환한다.
+
+### Fragment Principles
+
+- Fragment는 화면 카드 단위와 데이터 단위를 동시에 겸한다.
+- 하나의 Fragment는 하나의 메시지 묶음만 가져야 한다.
+- 최종 Resume View는 Fragment를 재배열해 일반 이력서 구조로 보여준다.
+
+### Recommended Fragment Model
+
+```ts
+interface ResumeFragment {
+  id: string
+  stageId: string
+  section: 'career' | 'education' | 'activities' | 'strengths' | 'projects' | 'contact'
+  title: string
+  summary: string
+  bullets: string[]
+  tags?: string[]
+  links?: {
+    label: string
+    url: string
+  }[]
+  unlocked: boolean
+  order: number
+}
+```
+
+### Stage to Fragment Mapping
+
+| Stage | Primary Fragment Output |
+|---|---|
+| 1 | career / toss |
+| 2 | career / lighthouse |
+| 3 | career / rowlabs |
+| 4 | education + activities |
+| 5 | strengths |
+| 6 | projects + final unlock token |
+
+### Final Resume Assembly Rule
+
+- Stage 1~5를 완료하면 핵심 Resume Blueprint는 거의 완성된다.
+- Stage 6를 완료하면 프로젝트 하이라이트와 최종 해금 토큰이 추가된다.
+- 최종 Resume View는 아래 순서로 조립한다.
+
+1. Profile summary
+2. Career fragments
+3. Education / Activities fragments
+4. Strengths fragment
+5. Project fragments
+6. Contact links
+
+### Unlock Rule
+
+- MVP 기준 최종 Resume View 오픈 조건은 **Stage 1~6 전체 클리어**다.
+- 다만 플레이 중에도 현재까지 해금된 Fragment는 Blueprint에서 미리 볼 수 있다.
+- `Skip to Resume Summary` 경로는 최종 전체본이 아니라, 현재까지 열린 정보만 보여주는 축약 뷰로 제한한다.
+
+---
+
+## 9. UX Principles
 
 ### Principle 1. Short Stages
 
@@ -278,7 +383,7 @@
 
 ---
 
-## 9. Screen Flow
+## 10. Screen Flow
 
 ```text
 Start Screen
@@ -303,7 +408,7 @@ Start Screen
 
 ---
 
-## 10. Visual Direction
+## 11. Visual Direction
 
 우주 허브는 버리되,
 전체 분위기는 여전히 게임적이고 선명해야 한다.
@@ -341,16 +446,23 @@ Start Screen
 
 ---
 
-## 11. Recommended Technical Direction
+## 12. Technical Direction & Stack
 
 현재 저장소의 기존 3D 우주 자산은 핵심에서 제외하고,
 게임 구조를 새 흐름에 맞게 단순화하는 것이 맞다.
 
-### Keep
+### Primary Stack
 
 - React 19 + TypeScript + Vite
 - Zustand
 - GSAP
+
+### Scope by Tool
+
+- `React`: 화면 전환, 스테이지 UI, 결과 화면, Resume View
+- `TypeScript`: Stage / Fragment / Progress 모델 정적 관리
+- `Zustand`: 진행도, 해금 상태, 현재 스테이지, 현재 뷰 상태
+- `GSAP`: 화면 전환, 클리어 연출, Resume Blueprint 채움 애니메이션
 
 ### Optional
 
@@ -380,19 +492,43 @@ interface StageProgress {
 - 애니메이션은 GSAP로 보강
 - 과한 엔진화보다 빠른 구현과 완성도를 우선
 
+### Storage Rule
+
+- MVP에서는 진행 상태를 세션 또는 로컬 상태로만 관리한다.
+- 서버 저장이나 로그인 기반 복원은 범위 밖으로 둔다.
+- 필요하면 `localStorage` 기반의 단순 이어하기만 후순위로 검토한다.
+
 ---
 
-## 12. MVP Definition
+## 13. MVP Definition
 
 MVP는 아래만 만족하면 된다.
 
 - 시작 화면이 있다.
 - 스테이지 선택 화면이 있다.
-- 최소 5개 이상의 스테이지가 있다.
+- **필수 스테이지 5개**가 있다.
+- **최종 해금 스테이지 1개**가 있다.
 - 최소 2종류 이상의 미니게임 패턴이 재사용된다.
 - 각 스테이지 클리어 시 이력서 조각이 해금된다.
 - 화면 한쪽 또는 전환 화면에서 이력서 완성률이 보인다.
 - 마지막에 완성된 이력서 전체본이 열린다.
+
+### Required Scope
+
+- Stage 1. Toss
+- Stage 2. Lighthouse
+- Stage 3. Rowlabs
+- Stage 4. Education & Activities
+- Stage 5. Career Detail
+- Stage 6. Projects / Final Unlock
+
+### Optional Scope
+
+- 미니게임별 세부 연출 강화
+- 사운드
+- 저장된 진행률 복구
+- 2.5D 장식 요소
+- 스테이지별 전용 배경 연출 확장
 
 MVP에서 굳이 하지 않아도 되는 것:
 
@@ -404,7 +540,7 @@ MVP에서 굳이 하지 않아도 되는 것:
 
 ---
 
-## 13. Build Order
+## 14. Build Order
 
 구현 순서는 아래가 가장 안전하다.
 
@@ -443,7 +579,7 @@ MVP에서 굳이 하지 않아도 되는 것:
 
 ---
 
-## 14. Success Criteria
+## 15. Success Criteria
 
 이 기획이 성공했다고 볼 수 있는 기준:
 
